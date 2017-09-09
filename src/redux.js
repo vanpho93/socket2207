@@ -3,6 +3,7 @@ import socket from './socket';
 
 const defaultState = {
     isLoggedIn: false,
+    highlightRoom: null,
     messages: [],
     users: [],
     highlightUser: null
@@ -32,6 +33,12 @@ const reducer = (state = defaultState, action) => {
         return {
             ...state,
             highlightUser: action.highlightUser
+        }
+    }
+    if(action.type === 'SET_HIGHLIGHT_ROOM') {
+        return {
+            ...state,
+            highlightRoom: action.highlightRoom
         }
     }
     return state;

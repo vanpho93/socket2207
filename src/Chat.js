@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import socket from './socket';
 import { connect } from 'react-redux';
 import User from './User';
+import Room from './Room';
 
 class Chat extends Component {
     constructor(props) {
@@ -37,6 +38,13 @@ class Chat extends Component {
                 <div>
                     <h4>Online users:</h4>
                     { users.map(username => <User username={username} key={username} />)}
+                </div>
+                <div>
+                    <h4>Rooms:</h4>
+                    <Room roomName="NodeJS" />
+                    <Room roomName="Native" />
+                    <Room roomName="Android" />
+                    <Room roomName="ReactJS" />
                 </div>
             </div>
         );
