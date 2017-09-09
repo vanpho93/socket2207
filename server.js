@@ -10,8 +10,9 @@ io.on('connection', socket => {
     socket.on('CLIENT_SIGN_IN', username => {
         const isExisted = arrUsernames.indexOf(username) !== -1;
         if (isExisted) return socket.emit('USERNAME_EXISTED');
+        socket.emit('SIGN_IN_SUCCESSFULLY', arrUsernames); 
         arrUsernames.push(username);
-        socket.emit('SIGN_IN_SUCCESSFULLY', arrUsernames);
+        io.emit('NEW_USER', username);
     });
 });
 

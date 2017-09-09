@@ -1,5 +1,4 @@
 import { createStore } from 'redux';
-import { connect } from 'react-redux';
 import socket from './socket';
 
 const defaultState = {
@@ -17,7 +16,10 @@ const reducer = (state = defaultState, action) => {
         return { ...state, isLoggedIn: true };
     }
     if(action.type === 'ADD_USERS') {
-        return {  ...state, users: action.arrUsernames}
+        return {  ...state, users: action.arrUsernames};
+    }
+    if(action.type === 'NEW_USER') {
+        return {  ...state, users: [...state.users, action.username] };
     }
     return state;
 }
@@ -30,5 +32,9 @@ socket.on('SIGN_IN_SUCCESSFULLY', arrUsernames => {
     store.dispatch({ type: 'SIGN_IN_SUCCESSFULLY' });
     store.dispatch({ type: 'ADD_USERS', arrUsernames });
 });
+
+socket.on('NEW_USER', username => {
+    store.dispatch({ type: 'NEW_USER', username });
+})
 
 export default store;
