@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
-import logo from './logo.svg';
-import './App.css';
 
 class App extends Component {
+  sendMessage() {
+    const { value } = this.refs.txtMessage;
+    socket.emit('CLIENT_SEND_MESSAGE', value);
+    this.refs.txtMessage.value = '';
+  }
+
   render() {
     return (
       <div className="App">
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input type="text" placeholder="Enter your message" ref="txtMessage"/>
+        <br /><br />
+        <button onClick={this.sendMessage.bind(this)}>Send Message</button>
       </div>
     );
   }
