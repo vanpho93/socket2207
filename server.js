@@ -1,6 +1,6 @@
 const io = require('socket.io')(4200);
 
-const arrUsernames = [];
+const arrUsernames = ['a', 'b', 'c'];
 
 io.on('connection', socket => {
     socket.on('CLIENT_SEND_MESSAGE', message => {
@@ -11,7 +11,7 @@ io.on('connection', socket => {
         const isExisted = arrUsernames.indexOf(username) !== -1;
         if (isExisted) return socket.emit('USERNAME_EXISTED');
         arrUsernames.push(username);
-        socket.emit('SIGN_IN_SUCCESSFULLY');
+        socket.emit('SIGN_IN_SUCCESSFULLY', arrUsernames);
     });
 });
 

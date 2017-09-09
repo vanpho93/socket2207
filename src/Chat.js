@@ -12,7 +12,7 @@ class Chat extends Component {
     }
 
     render() {
-        const { messages } = this.props;
+        const { messages, users } = this.props;
         return (
             <div>
                 <input type="text" placeholder="Enter your message" ref="txtMessage" />
@@ -21,16 +21,16 @@ class Chat extends Component {
                 {messages.map((message, index) => <p key={index}>{message}</p>)}
                 <div>
                     <h4>Online users:</h4>
-                    <p>aaa</p>
-                    <p>aaa</p>
-                    <p>aaa</p>
-                    <p>aaa</p>
+                    { users.map(username => <p key={username}>{username}</p>) }
                 </div>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => ({ messages: state.messages });
+const mapStateToProps = (state) => ({ 
+    messages: state.messages,
+    users: state.users
+});
 
 export default connect(mapStateToProps)(Chat);
