@@ -1,32 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import socket from './socket';
+import SignIn from './SignIn';
+import Chat from './Chat';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.sendMessage = this.sendMessage.bind(this);
-  }
-  
-  sendMessage() {
-    const { value } = this.refs.txtMessage;
-    socket.emit('CLIENT_SEND_MESSAGE', value);
-    this.refs.txtMessage.value = '';
-  }
-
   render() {
-    const { messages } = this.props;
+    const { isLoggedIn } = this.props;
     return (
       <div className="App">
-        <input type="text" placeholder="Enter your message" ref="txtMessage"/>
-        <br /><br />
-        <button onClick={this.sendMessage}>Send Message</button>
-        { messages.map((message, index) => <p key={index}>{message}</p>) }
+        { isLoggedIn ? <Chat /> : <SignIn /> }
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({ messages: state.messages });
+const mapStateToProps = (state) => ({ isLoggedIn: state.isLoggedIn });
 
 export default connect(mapStateToProps)(App);

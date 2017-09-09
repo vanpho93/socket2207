@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import socket from './socket';
 
 const defaultState = {
-    messages: ['aaa', 'bbb', 'ccc']
+    isLoggedIn: true,
+    messages: ['aaa', 'bbb', 'ccc'],
+    users: []
 };
 
 const reducer = (state = defaultState, action) => {
