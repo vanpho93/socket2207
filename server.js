@@ -10,9 +10,17 @@ io.on('connection', socket => {
     socket.on('CLIENT_SIGN_IN', username => {
         const isExisted = arrUsernames.indexOf(username) !== -1;
         if (isExisted) return socket.emit('USERNAME_EXISTED');
+        socket.username = username;
         socket.emit('SIGN_IN_SUCCESSFULLY', arrUsernames); 
         arrUsernames.push(username);
         io.emit('NEW_USER', username);
+    });
+
+    socket.on('disconnect', () => {
+        if(!socket.username) return;
+        const index = arrUsernames.indexOf(socket.username);
+        arrUsernames.splice(index, 1);
+        io.emit('CLIENT_DISCONNECT', socket.username);
     });
 });
 

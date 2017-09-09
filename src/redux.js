@@ -21,6 +21,12 @@ const reducer = (state = defaultState, action) => {
     if(action.type === 'NEW_USER') {
         return {  ...state, users: [...state.users, action.username] };
     }
+    if(action.type === 'REMOVE_USER') {
+        return { 
+            ...state, 
+            users: state.users.filter(username => username !== action.username) 
+        }
+    }
     return state;
 }
 
@@ -35,6 +41,10 @@ socket.on('SIGN_IN_SUCCESSFULLY', arrUsernames => {
 
 socket.on('NEW_USER', username => {
     store.dispatch({ type: 'NEW_USER', username });
-})
+});
+
+socket.on('CLIENT_DISCONNECT', username => {
+    store.dispatch({ type: 'REMOVE_USER', username });
+});
 
 export default store;
