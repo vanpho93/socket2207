@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import socket from './socket';
 
 const defaultState = {
-    isLoggedIn: true,
+    isLoggedIn: false,
     messages: ['aaa', 'bbb', 'ccc'],
     users: []
 };
@@ -13,11 +13,16 @@ const reducer = (state = defaultState, action) => {
         ...state, 
         messages: [...state.messages, action.message]
     }
+    if(action.type === 'SIGN_IN_SUCCESSFULLY') {
+        return { ...state, isLoggedIn: true };
+    }
     return state;
 }
 
 const store = createStore(reducer);
 
 socket.on('SERVER_SEND_MESSAGE', message => store.dispatch({ type: 'ADD_MESSAGE', message }))
+socket.on('USERNAME_EXISTED', () => alert('Username is already in use!'));
+socket.on('SIGN_IN_SUCCESSFULLY', () => store.dispatch({ type: 'SIGN_IN_SUCCESSFULLY' }));
 
 export default store;
