@@ -9,11 +9,18 @@ class Chat extends Component {
         super(props);
         this.sendMessage = this.sendMessage.bind(this);
         this.sendPrivateMessage = this.sendPrivateMessage.bind(this);
+        this.sendRoomMessage = this.sendRoomMessage.bind(this);
     }
 
     sendMessage() {
         const message = this.refs.txtMessage.value;
         socket.emit('CLIENT_SEND_MESSAGE', message);
+        this.refs.txtMessage.value = '';
+    }
+
+    sendRoomMessage() {
+        const message = this.refs.txtMessage.value;
+        socket.emit('CLIENT_SEND_ROOM_MESSAGE', message);
         this.refs.txtMessage.value = '';
     }
 
@@ -34,6 +41,8 @@ class Chat extends Component {
                 <button onClick={this.sendMessage}>Send Message</button>
                 <br /><br />
                 <button onClick={this.sendPrivateMessage}>Send Private Message</button>
+                <br /><br />
+                <button onClick={this.sendRoomMessage}>Send Room Message</button>
                 {messages.map((message, index) => <p key={index}>{message}</p>)}
                 <div>
                     <h4>Online users:</h4>

@@ -30,6 +30,19 @@ io.on('connection', socket => {
         const id = arrSockets[index].id;
         socket.to(id).emit('SERVER_SEND_MESSAGE', `${socket.username}: ${message}`);
     });
+
+    socket.on('CLIENT_JOIN_ROOM', roomName => {
+        if(!socket.myRoom) socket.join(roomName);
+        socket.leave(socket.myRoom, () => {
+            socket.myRoom = roomName;
+            socket.join(roomName);
+        });
+    });
+
+    socket.on('CLIENT_SEND_ROOM_MESSAGE', message => {
+        console.log(message, socket.myRoom);
+        io.in(socket.myRoom).emit('SERVER_SEND_MESSAGE', message);
+    });
 });
 
 // Gui duoc username len server 
