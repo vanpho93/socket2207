@@ -22,6 +22,10 @@ io.on('connection', socket => {
         arrUsernames.splice(index, 1);
         io.emit('CLIENT_DISCONNECT', socket.username);
     });
+
+    socket.on('CLIENT_SEND_PRIVATE_MESSAGE', ({ username, message }) => {
+        // tim ra cai id cua socket co username = username truyen vao;
+    });
 });
 
 // Gui duoc username len server 
