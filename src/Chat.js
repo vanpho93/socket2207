@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import socket from './socket';
 import { connect } from 'react-redux';
+import User from './User';
 
 class Chat extends Component {
     constructor(props) {
@@ -25,17 +26,7 @@ class Chat extends Component {
                 {messages.map((message, index) => <p key={index}>{message}</p>)}
                 <div>
                     <h4>Online users:</h4>
-                    { users.map(username => (
-                        <p 
-                            key={username} 
-                            style={{ color: username === highlightUser ? 'green': 'black' }} 
-                            onClick={() => dispatch({ 
-                                type: 'SET_HIGHLIGHT_USER', 
-                                highlightUser: username })
-                            }>
-                            {username}
-                        </p>
-                    ))}
+                    { users.map(username => <User username={username} />)}
                 </div>
             </div>
         );
