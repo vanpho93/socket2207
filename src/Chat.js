@@ -21,6 +21,7 @@ class Chat extends Component {
                 <input type="text" placeholder="Enter your message" ref="txtMessage" />
                 <br /><br />
                 <button onClick={this.sendMessage}>Send Message</button>
+                <button onClick={this.sendMessage}>Send Private Message</button>
                 {messages.map((message, index) => <p key={index}>{message}</p>)}
                 <div>
                     <h4>Online users:</h4>
