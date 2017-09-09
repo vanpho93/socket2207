@@ -25,7 +25,7 @@ class Chat extends Component {
     }
 
     render() {
-        const { messages, users, highlightUser, dispatch } = this.props;
+        const { messages, users } = this.props;
         return (
             <div>
                 <input type="text" placeholder="Enter your message" ref="txtMessage" />
@@ -36,7 +36,7 @@ class Chat extends Component {
                 {messages.map((message, index) => <p key={index}>{message}</p>)}
                 <div>
                     <h4>Online users:</h4>
-                    { users.map(username => <User username={username} />)}
+                    { users.map(username => <User username={username} key={username} />)}
                 </div>
             </div>
         );

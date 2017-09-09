@@ -1,6 +1,7 @@
 const io = require('socket.io')(4200);
 
 const arrUsernames = ['aaa', 'bbb', 'ccc'];
+const arrSockets = [];
 
 io.on('connection', socket => {
     socket.on('CLIENT_SEND_MESSAGE', message => {
@@ -13,6 +14,7 @@ io.on('connection', socket => {
         socket.username = username;
         socket.emit('SIGN_IN_SUCCESSFULLY', arrUsernames); 
         arrUsernames.push(username);
+        arrSockets.push(socket);
         io.emit('NEW_USER', username);
     });
 
@@ -24,7 +26,9 @@ io.on('connection', socket => {
     });
 
     socket.on('CLIENT_SEND_PRIVATE_MESSAGE', ({ username, message }) => {
-        // tim ra cai id cua socket co username = username truyen vao;
+        const index = arrSockets.findIndex(aSocket => aSocket.username === username);
+        const id = arrSockets[index].id;
+        socket.to(id).emit('SERVER_SEND_MESSAGE', `${socket.username}: ${message}`);
     });
 });
 

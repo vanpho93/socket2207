@@ -7,7 +7,7 @@ class User extends Component {
         const action = { type: 'SET_HIGHLIGHT_USER', highlightUser: username };
         const style = { color: username === highlightUser ? 'green': 'black' };
         return (
-            <p key={username} style={style} onClick={() => dispatch(action)}>
+            <p style={style} onClick={() => dispatch(action)}>
                 {username}
             </p>
         );
