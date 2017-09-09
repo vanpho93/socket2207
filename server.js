@@ -1,6 +1,6 @@
 const io = require('socket.io')(4200);
 
-const arrUsernames = [];
+const arrUsernames = ['aaa', 'bbb', 'ccc'];
 
 io.on('connection', socket => {
     socket.on('CLIENT_SEND_MESSAGE', message => {

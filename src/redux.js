@@ -4,7 +4,8 @@ import socket from './socket';
 const defaultState = {
     isLoggedIn: false,
     messages: [],
-    users: []
+    users: [],
+    highlightUser: null
 };
 
 const reducer = (state = defaultState, action) => {
@@ -25,6 +26,12 @@ const reducer = (state = defaultState, action) => {
         return { 
             ...state, 
             users: state.users.filter(username => username !== action.username) 
+        }
+    }
+    if(action.type === 'SET_HIGHLIGHT_USER') {
+        return {
+            ...state,
+            highlightUser: action.highlightUser
         }
     }
     return state;

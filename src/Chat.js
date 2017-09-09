@@ -15,7 +15,7 @@ class Chat extends Component {
     }
 
     render() {
-        const { messages, users } = this.props;
+        const { messages, users, highlightUser, dispatch } = this.props;
         return (
             <div>
                 <input type="text" placeholder="Enter your message" ref="txtMessage" />
@@ -25,7 +25,17 @@ class Chat extends Component {
                 {messages.map((message, index) => <p key={index}>{message}</p>)}
                 <div>
                     <h4>Online users:</h4>
-                    { users.map(username => <p key={username}>{username}</p>) }
+                    { users.map(username => (
+                        <p 
+                            key={username} 
+                            style={{ color: username === highlightUser ? 'green': 'black' }} 
+                            onClick={() => dispatch({ 
+                                type: 'SET_HIGHLIGHT_USER', 
+                                highlightUser: username })
+                            }>
+                            {username}
+                        </p>
+                    ))}
                 </div>
             </div>
         );
@@ -34,7 +44,8 @@ class Chat extends Component {
 
 const mapStateToProps = (state) => ({ 
     messages: state.messages,
-    users: state.users
+    users: state.users,
+    highlightUser: state.highlightUser
 });
 
 export default connect(mapStateToProps)(Chat);
