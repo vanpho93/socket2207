@@ -1,10 +1,10 @@
 const io = require('socket.io')(4200);
 
-const arrUsernames = ['a', 'b', 'c'];
+const arrUsernames = [];
 
 io.on('connection', socket => {
     socket.on('CLIENT_SEND_MESSAGE', message => {
-        io.emit('SERVER_SEND_MESSAGE', message);
+        io.emit('SERVER_SEND_MESSAGE', `${socket.username}: ${message}`);
     });
 
     socket.on('CLIENT_SIGN_IN', username => {

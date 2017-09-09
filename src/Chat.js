@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import socket from './socket';
 import { connect } from 'react-redux';
 
 class Chat extends Component {
@@ -8,7 +9,9 @@ class Chat extends Component {
     }
 
     sendMessage() {
-        // Handle send message here
+        const message = this.refs.txtMessage.value;
+        socket.emit('CLIENT_SEND_MESSAGE', message);
+        this.refs.txtMessage.value = '';
     }
 
     render() {

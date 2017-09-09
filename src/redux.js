@@ -3,7 +3,7 @@ import socket from './socket';
 
 const defaultState = {
     isLoggedIn: false,
-    messages: ['aaa', 'bbb', 'ccc'],
+    messages: [],
     users: []
 };
 
