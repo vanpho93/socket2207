@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
+import { connect } from 'react-redux';
 
 const socket = io('http://localhost:4200');
 
@@ -25,7 +26,7 @@ class App extends Component {
   }
 
   render() {
-    const { messages } = this.state;
+    const { messages } = this.props;
     return (
       <div className="App">
         <input type="text" placeholder="Enter your message" ref="txtMessage"/>
@@ -37,4 +38,6 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({ messages: state.messages });
+
+export default connect(mapStateToProps)(App);
